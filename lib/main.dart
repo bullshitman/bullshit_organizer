@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'utils.dart' as utils;
+import 'package:bullshit_organizer/notes/Notes.dart';
+
 //Start point
 void main() {
   print("#=# main() FlutterOrganizer starting");
+  WidgetsFlutterBinding.ensureInitialized();
   startMeUp() async {
     Directory docsDir = await getApplicationDocumentsDirectory();
     utils.docsDir = docsDir;
     runApp(FlutterOrganizer());
   }
-  startMeUp()
+  startMeUp();
 }//end main()
 
 //main app widget
@@ -38,10 +41,13 @@ class FlutterOrganizer extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Appointments(),
-              Contacts(),
+              // Appointments(),
+              // Contacts(),
               Notes(),
-              Tasks()
+              Notes(),
+              Notes(),
+              Notes(),
+              // Tasks()
             ],
           )
         ),

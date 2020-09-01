@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
-import 'baseModel.dart';
+import 'model/BaseModel.dart';
 
 //app directory
 Directory docsDir;

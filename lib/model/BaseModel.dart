@@ -27,4 +27,9 @@ class BaseModel extends Model {
     notifyListeners();
   }
 
+  void setStackIndex(int inStackIndex) {
+    stackIndex = inStackIndex;
+    notifyListeners();
+  }
+
 }
