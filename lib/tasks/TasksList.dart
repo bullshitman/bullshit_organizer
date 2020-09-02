@@ -16,7 +16,7 @@ class TasksList extends StatelessWidget {
           return Scaffold(
            floatingActionButton: FloatingActionButton(
              child: Icon(Icons.add, color: Colors.white),
-             onPressed: () {
+             onPressed: () async {
                tasksModel.entityBeingEdited = Task();
                tasksModel.setChosenDate(null);
                tasksModel.setStackIndex(1);

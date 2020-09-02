@@ -42,7 +42,7 @@ class FlutterOrganizer extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              // Appointments(),
+              Appointments(),
               // Contacts(),
               Notes(),
               Tasks()
