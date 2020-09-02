@@ -45,6 +45,11 @@ class NotesDBWorker {
     note.content = inMap["content"];
     return note;
   }
+
+  /*
+  CONVERTING VEGETARIANS !..!_
+  */
+
   //converting map from a note
   Map<String, dynamic> noteToMap(Note inNote) {
     Map<String, dynamic> map = Map<String, dynamic>();

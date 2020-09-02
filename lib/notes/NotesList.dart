@@ -69,6 +69,8 @@ class NotesList extends StatelessWidget {
       )
     );
   }
+
+  //delete note with confirmation
   Future _deleteNote(BuildContext inContext, Note inNote) {
     return showDialog(
         context: inContext,
@@ -94,6 +96,7 @@ class NotesList extends StatelessWidget {
                       content: Text("Note deleted")
                     )
                   );
+                  //reload notes list
                   notesModel.loadData("notes", NotesDBWorker.db);
                 }
               )

@@ -7,13 +7,14 @@ import 'NotesEntry.dart';
 
 // Notes screen
 class Notes extends StatelessWidget {
+  //constructor
   Notes() {
-    print("## Notes.constructor");
+    print("#==# Notes.constructor");
     notesModel.loadData("notes", NotesDBWorker.db);
   }
 
   Widget build(BuildContext inContext) {
-    print("## Notes.build()");
+    print("#==# Notes.build()");
     return ScopedModel<NotesModel>(
       model: notesModel,
       child: ScopedModelDescendant<NotesModel>(

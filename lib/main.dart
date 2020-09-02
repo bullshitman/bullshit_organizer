@@ -3,6 +3,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'utils.dart' as utils;
 import 'package:bullshit_organizer/notes/Notes.dart';
+import 'package:bullshit_organizer/tasks/Tasks.dart';
 
 //Start point
 void main() {
@@ -44,10 +45,7 @@ class FlutterOrganizer extends StatelessWidget {
               // Appointments(),
               // Contacts(),
               Notes(),
-              Notes(),
-              Notes(),
-              Notes(),
-              // Tasks()
+              Tasks()
             ],
           )
         ),

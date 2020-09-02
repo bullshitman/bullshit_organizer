@@ -4,11 +4,14 @@ import 'NotesDBWorker.dart';
 import 'NotesModel.dart' show NotesModel, notesModel;
 
 class NotesEntry extends StatelessWidget {
+
   final TextEditingController _titleEditingController = TextEditingController();
   final TextEditingController _contentEditionController = TextEditingController();
 
+  //unique key for form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+  //constructor
   NotesEntry() {
     _titleEditingController.addListener(() {
       notesModel.entityBeingEdited.title = _titleEditingController.text;
@@ -37,7 +40,9 @@ class NotesEntry extends StatelessWidget {
                   FlatButton(
                     child: Text("Cancel"),
                     onPressed: () {
+                      //hide keyboard
                       FocusScope.of(inContext).requestFocus(FocusNode());
+                      //back to the note list
                       inModel.setStackIndex(0);
                     }
                   ),
@@ -53,6 +58,7 @@ class NotesEntry extends StatelessWidget {
               key: _formKey,
               child: ListView(
                 children: [
+                  //title
                   ListTile(
                     leading: Icon(Icons.title),
                     title: TextFormField(
@@ -66,6 +72,7 @@ class NotesEntry extends StatelessWidget {
                       }
                     )
                   ),
+                  //content
                   ListTile(
                     leading: Icon(Icons.content_paste),
                     title: TextFormField(
@@ -79,6 +86,7 @@ class NotesEntry extends StatelessWidget {
                       }
                     )
                   ),
+                  //notes colors
                   ListTile(
                     leading: Icon(Icons.color_lens),
                     title: Row(
@@ -184,11 +192,14 @@ class NotesEntry extends StatelessWidget {
     }
 
     if (inModel.entityBeingEdited.id == null) {
+      //create a new note
       await NotesDBWorker.db.create(notesModel.entityBeingEdited);
     } else {
+      //update existing note
       await NotesDBWorker.db.update(notesModel.entityBeingEdited);
     }
 
+    //reload notes list
     notesModel.loadData("notes", NotesDBWorker.db);
     inModel.setStackIndex(0);
       Scaffold.of(inContext).showSnackBar(

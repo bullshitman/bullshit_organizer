@@ -11,7 +11,7 @@ class Note {
   }
 }
 
-//setup users color
+//setup color
 class NotesModel extends BaseModel {
   String color;
   void setColor(String inColor) {
