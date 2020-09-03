@@ -123,7 +123,7 @@ class AppointmentsList extends StatelessWidget {
                                   caption: "Delete",
                                   color: Colors.red,
                                   icon: Icons.delete,
-                                  onTap: () => _deleteAppointment(inContext, appointment);
+                                  onTap: () => _deleteAppointment(inContext, appointment)
                                 )
                               ],
                             );
@@ -147,8 +147,59 @@ class AppointmentsList extends StatelessWidget {
       appointmentsModel.setChosenDate(null);
     } else {
       List dateParts = appointmentsModel.entityBeingEdited.apptDate.split(",");
-
+      DateTime apptDate = DateTime(int.parse(dateParts[0]), int.parse(dateParts[1]), int.parse(dateParts[2]));
+      appointmentsModel.setChosenDate(DateFormat.yMMMMd("en_US").format(apptDate.toLocal()));
     }
+    if(appointmentsModel.entityBeingEdited.apptTime == null) {
+      appointmentsModel.setApptTime(null);
+    } else {
+      List timeParts = appointmentsModel.entityBeingEdited.apptTime.split(",");
+      TimeOfDay apptTime = TimeOfDay(
+        hour: int.parse(timeParts[0]),
+        minute: int.parse(timeParts[1])
+      );
+      appointmentsModel.setApptTime(apptTime.format(inContext));
+    }
+    appointmentsModel.setStackIndex(1);
+    Navigator.pop(inContext);
+  }
+
+  _deleteAppointment(BuildContext inContext, Appointment inAppointment) async {
+    return showDialog<void>(
+      context: inContext,
+      barrierDismissible: false,
+      // false = user must tap button, true = tap outside dialog
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Delete appointment'),
+          content: Text('Are you sure want to delete ${inAppointment.description}?'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Dismiss alert dialog
+              },
+            ),
+            FlatButton(
+              child: Text("Delete"),
+              onPressed: () async {
+                await AppointmentsDBWorker.db.delete(inAppointment.id);
+                Navigator.of(inContext).pop();
+                Scaffold.of(inContext).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 2),
+                    content: Text("Appointment deleted")
+                  )
+                );
+                //reload appointment list
+                appointmentsModel.loadData("appointment", AppointmentsDBWorker.db);
+              }
+            )
+          ],
+        );
+      },
+    );
   }
 
 }

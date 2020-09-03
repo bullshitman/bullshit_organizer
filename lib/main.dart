@@ -1,3 +1,4 @@
+import 'package:bullshit_organizer/appointments/Appointments.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
@@ -44,6 +45,7 @@ class FlutterOrganizer extends StatelessWidget {
             children: [
               Appointments(),
               // Contacts(),
+              Notes(),
               Notes(),
               Tasks()
             ],

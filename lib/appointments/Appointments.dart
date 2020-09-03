@@ -3,7 +3,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'AppointmentsModel.dart';
 import 'AppointmentsDBWorker.dart';
 import 'AppointmentsList.dart';
-import 'AppointmentsEntry.dart';
+import 'AppointmentEntry.dart';
 
 //Appointments screen
 class Appointments extends StatelessWidget {

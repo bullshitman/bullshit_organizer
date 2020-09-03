@@ -1,3 +1,4 @@
+import 'package:bullshit_organizer/appointments/AppointmentsModel.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'NotesDBWorker.dart';
@@ -23,9 +24,10 @@ class NotesEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext inContext) {
-    _titleEditingController.text = notesModel.entityBeingEdited.title;
-    _contentEditionController.text = notesModel.entityBeingEdited.content;
-
+    if(notesModel.entityBeingEdited != null) {
+      _titleEditingController.text = notesModel.entityBeingEdited.title;
+      _contentEditionController.text = notesModel.entityBeingEdited.content;
+    }
     return ScopedModel(
       model: notesModel,
       child: ScopedModelDescendant<NotesModel>(
@@ -202,7 +204,7 @@ class NotesEntry extends StatelessWidget {
     //reload notes list
     notesModel.loadData("notes", NotesDBWorker.db);
     inModel.setStackIndex(0);
-      Scaffold.of(inContext).showSnackBar(
+    Scaffold.of(inContext).showSnackBar(
         SnackBar(
           backgroundColor: Colors.green,
           duration: Duration(seconds: 2),
