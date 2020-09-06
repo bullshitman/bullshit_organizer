@@ -1,9 +1,11 @@
+import 'package:bullshit_organizer/contacts/ContactsEntry.dart';
+import 'package:bullshit_organizer/contacts/ContactsList.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'ContactsModel.dart';
 import 'ContactsDBWorker.dart';
-import 'ContactsList';
-import 'ContactsEntry';
+import 'ContactsList.dart';
+import 'ContactsEntry.dart';
 
 //Contacts screen
 class Contacts extends StatelessWidget {

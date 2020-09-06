@@ -5,6 +5,7 @@ import 'dart:io';
 import 'utils.dart' as utils;
 import 'package:bullshit_organizer/notes/Notes.dart';
 import 'package:bullshit_organizer/tasks/Tasks.dart';
+import 'contacts/Contacts.dart';
 
 //Start point
 void main() {
@@ -44,8 +45,7 @@ class FlutterOrganizer extends StatelessWidget {
           body: TabBarView(
             children: [
               Appointments(),
-              // Contacts(),
-              Notes(),
+              Contacts(),
               Notes(),
               Tasks()
             ],

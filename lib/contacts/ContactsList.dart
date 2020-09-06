@@ -92,7 +92,7 @@ class ContactsList extends StatelessWidget {
                                         color: Colors.red,
                                         icon: Icons.delete,
                                         onTap: () =>
-                                            _deleteContact(inContext, contact);
+                                            _deleteContact(inContext, contact)
                                     )
                                   ]
                               ),
@@ -108,7 +108,7 @@ class ContactsList extends StatelessWidget {
 
   }
 
-  Future _deleteContact(BuildContext inContext, Contact inContact) asyns {
+  Future _deleteContact(BuildContext inContext, Contact inContact) async {
     return showDialog(
     context: inContext,
     barrierDismissible: false, // false = user must tap button, true = tap outside dialog
@@ -123,12 +123,25 @@ class ContactsList extends StatelessWidget {
             Navigator.of(inContext).pop(); // Dismiss alert dialog
           },
           ),
-  FlatButton(
-  child: Text("Delete"),
-  onPressed: () {
-    File avatar = File(join(utils.docsDir.path), inContact.id.toString()));
-  }
-  )
+        FlatButton(
+          child: Text("Delete"),
+          onPressed: () async {
+            File avatarFile = File(join(utils.docsDir.path, inContact.id.toString()));
+            if(avatarFile.existsSync()) {
+              avatarFile.deleteSync();
+            }
+            await ContactsDBWorker.db.delete(inContact.id);
+            Navigator.of(inAlertContext).pop();
+            Scaffold.of(inContext).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                duration: Duration(seconds: 2),
+                content: Text("Contact was deleted"),
+              )
+            );
+            contactsModel.loadData("contacts", ContactsDBWorker.db);
+          }
+        )
         ],
       );
     },
