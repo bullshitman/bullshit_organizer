@@ -15,6 +15,7 @@ class Contact {
 
 class ContactsModel extends BaseModel {
   void triggerRebuild() {
+    print("#==# redraw widgets");
     notifyListeners();
   }
 }

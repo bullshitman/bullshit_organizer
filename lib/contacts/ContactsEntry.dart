@@ -18,15 +18,15 @@ class ContactsEntry extends StatelessWidget {
 
   ContactsEntry() {
     _nameEditingController.addListener(() {
-      contactsModel.entityBeingEdited.name = _nameEditingController;
+      contactsModel.entityBeingEdited.name = _nameEditingController.text;
     });
 
     _emailEditingController.addListener(() {
-      contactsModel.entityBeingEdited.telephone = _phoneEditingController;
+      contactsModel.entityBeingEdited.telephone = _phoneEditingController.text;
     });
 
     _emailEditingController.addListener(() {
-      contactsModel.entityBeingEdited.email = _emailEditingController;
+      contactsModel.entityBeingEdited.email = _emailEditingController.text;
     });
   }
 
@@ -194,6 +194,7 @@ Future _selectAvatar(BuildContext inContext) {
                 var cameraImage = await ImagePicker.pickImage(source: ImageSource.camera);
                 if(cameraImage != null) {
                   //Copy file
+                  print("#==# Got image from camera");
                   cameraImage.copySync(join(utils.docsDir.path, "avatar"));
                   contactsModel.triggerRebuild();
                 }
@@ -210,6 +211,7 @@ Future _selectAvatar(BuildContext inContext) {
                 var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                 if(galleryImage != null) {
                   //copy image
+                  print("#==# Got image from gallery");
                   galleryImage.copySync(join(utils.docsDir.path, "avatar"));
                   contactsModel.triggerRebuild();
                 }

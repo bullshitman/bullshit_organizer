@@ -1,7 +1,5 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:intl/intl.dart';
 import 'model/BaseModel.dart';
 
@@ -33,7 +31,7 @@ Future selectDate(
   //if did't cancel, updating
   if (picked != null) {
     inModel.setChosenDate(DateFormat.yMMMMd("en_US").format(picked.toLocal()));
-    return "${picked.year}, ${picked.month} ${picked.day}";
+    return "${picked.year},${picked.month},${picked.day}";
   }
 
 }

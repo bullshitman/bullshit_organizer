@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:bullshit_organizer/utils.dart' as utils;
@@ -12,7 +11,7 @@ class ContactsDBWorker {
 
   // database instance
   Future get database async {
-    if (db == null) {
+    if (_db == null) {
       _db = await init();
     }
     return _db;
@@ -25,7 +24,7 @@ class ContactsDBWorker {
         path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
           await inDB.execute(
-              "CREATE TABLE IF NOT EXIST contacts ("
+              "CREATE TABLE IF NOT EXISTS contacts ("
                   "id INTEGER PRIMARY KEY,"
                   "name TEXT,"
                   "telephone TEXT,"
@@ -56,9 +55,9 @@ class ContactsDBWorker {
   Map<String, dynamic> contactToMap(Contact inContact) {
     Map<String, dynamic> map = Map<String, dynamic>();
     map["id"] = inContact.id;
-    map["title"] = inContact.name;
-    map["color"] = inContact.telephone;
-    map["content"] = inContact.email;
+    map["name"] = inContact.name;
+    map["telephone"] = inContact.telephone;
+    map["email"] = inContact.email;
     map["birthday"] = inContact.birthday;
     return map;
   }

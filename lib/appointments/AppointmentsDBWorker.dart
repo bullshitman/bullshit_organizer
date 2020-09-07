@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:bullshit_organizer/utils.dart' as utils;
@@ -12,7 +11,7 @@ class AppointmentsDBWorker {
 
   // database instance
   Future get database async {
-    if (db == null) {
+    if (_db == null) {
       _db = await init();
     }
     return _db;
@@ -25,7 +24,7 @@ class AppointmentsDBWorker {
         path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
           await inDB.execute(
-              "CREATE TABLE IF NOT EXIST appointments ("
+              "CREATE TABLE IF NOT EXISTS appointments ("
                   "id INTEGER PRIMARY KEY,"
                   "title TEXT,"
                   "description TEXT,"
@@ -72,7 +71,7 @@ class AppointmentsDBWorker {
     if (id == null) {id = 1;}
     return await db.rawInsert(
         "INSERT INTO appointments (id, title, description, apptDate, apptTime) "
-            "VALUES (?, ?, ?, ?)",
+            "VALUES (?, ?, ?, ?, ?)",
         [inAppointment.id, inAppointment.title, inAppointment.description, inAppointment.apptDate, inAppointment.apptTime]
     );
   }

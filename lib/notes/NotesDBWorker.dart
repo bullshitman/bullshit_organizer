@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:bullshit_organizer/utils.dart' as utils;
@@ -12,7 +11,7 @@ class NotesDBWorker {
 
   // database instance
   Future get database async {
-    if (db == null) {
+    if (_db == null) {
       _db = await init();
     }
     return _db;
@@ -25,7 +24,7 @@ class NotesDBWorker {
         path, version: 1, onOpen: (db) {},
         onCreate: (Database inDB, int inVersion) async {
           await inDB.execute(
-              "CREATE TABLE IF NOT EXIST notes ("
+              "CREATE TABLE IF NOT EXISTS notes ("
               "id INTEGER PRIMARY KEY,"
               "title TEXT,"
               "content TEXT,"
