@@ -44,10 +44,11 @@ class ContactsEntry extends StatelessWidget {
         builder: (BuildContext inContext, Widget inChild, ContactsModel inModel) {
           File avatarFile = File(join(utils.docsDir.path, "avatar"));
           if(avatarFile.existsSync() == false) {
-            if(inModel.entityBeingEdited != null && inModel.entityBeingEdited.id != null) {
+            if (inModel.entityBeingEdited != null && inModel.entityBeingEdited.id != null) {
               avatarFile = File(join(utils.docsDir.path, inModel.entityBeingEdited.id.toString()));
             }
           }
+
           return Scaffold(
             bottomNavigationBar: Padding(
               padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -108,6 +109,7 @@ class ContactsEntry extends StatelessWidget {
                     leading: Icon(Icons.phone),
                     title: TextFormField(
                       keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(hintText: "Telephone"),
                       controller: _phoneEditingController,
                     )
                   ),
@@ -116,6 +118,7 @@ class ContactsEntry extends StatelessWidget {
                     leading: Icon(Icons.email),
                     title: TextFormField(
                       keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(hintText: "email"),
                       controller: _emailEditingController,
                     )
                   ),
@@ -160,7 +163,7 @@ class ContactsEntry extends StatelessWidget {
 
     //rename avatar file with id
     File avatarFile = File(join(utils.docsDir.path, "avatar"));
-    if(avatarFile.existsSync()) {
+    if (avatarFile.existsSync()) {
       avatarFile.renameSync(join(utils.docsDir.path, id.toString()));
     }
 
@@ -210,6 +213,7 @@ Future _selectAvatar(BuildContext inContext) {
               onTap: () async {
                 var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
                 if(galleryImage != null) {
+
                   //copy image
                   print("#==# Got image from gallery");
                   galleryImage.copySync(join(utils.docsDir.path, "avatar"));

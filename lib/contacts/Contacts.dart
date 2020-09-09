@@ -11,7 +11,7 @@ import 'ContactsEntry.dart';
 class Contacts extends StatelessWidget {
   Contacts() {
     print("#==# Contacts.constructor");
-    contactsModel.loadData("notes", ContactsDBWorker.db);
+    contactsModel.loadData("contacts", ContactsDBWorker.db);
   }
 
   @override
