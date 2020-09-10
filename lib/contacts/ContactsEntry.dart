@@ -30,6 +30,8 @@ class ContactsEntry extends StatelessWidget {
     });
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     if(contactsModel.entityBeingEdited != null) {
@@ -183,7 +185,8 @@ class ContactsEntry extends StatelessWidget {
 
 }
 
-Future _selectAvatar(BuildContext inContext) {
+Future _selectAvatar(BuildContext inContext) async {
+  final picker = ImagePicker();
   return showDialog(context: inContext,
   builder: (BuildContext inDialogContext) {
     return AlertDialog(
@@ -194,12 +197,14 @@ Future _selectAvatar(BuildContext inContext) {
             GestureDetector(
               child: Text("Take a photo"),
               onTap: () async {
-                var cameraImage = await ImagePicker.pickImage(source: ImageSource.camera);
+                var cameraImage = await picker.getImage(source: ImageSource.camera);
                 if(cameraImage != null) {
                   //Copy file
+                  File file = File(cameraImage.path);
                   print("#==# Got image from camera");
-                  cameraImage.copySync(join(utils.docsDir.path, "avatar"));
+                  file.copySync(join(utils.docsDir.path, "avatar"));
                   contactsModel.triggerRebuild();
+                  // setState()
                 }
                 Navigator.of(inDialogContext).pop();
               }
@@ -211,12 +216,12 @@ Future _selectAvatar(BuildContext inContext) {
             GestureDetector(
               child: Text("Select from gallery"),
               onTap: () async {
-                var galleryImage = await ImagePicker.pickImage(source: ImageSource.gallery);
+                var galleryImage = await picker.getImage(source: ImageSource.gallery);
                 if(galleryImage != null) {
-
                   //copy image
                   print("#==# Got image from gallery");
-                  galleryImage.copySync(join(utils.docsDir.path, "avatar"));
+                  File file = File(galleryImage.path);
+                  file.copySync(join(utils.docsDir.path, "avatar"));
                   contactsModel.triggerRebuild();
                 }
                 Navigator.of(inDialogContext).pop();
